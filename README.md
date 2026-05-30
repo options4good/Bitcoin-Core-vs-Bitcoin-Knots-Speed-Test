@@ -1,6 +1,6 @@
 <h1>Bitcoin-Core-vs-Bitcoin-Knots-Speed-Test</h1>
-This script was made to take a clean look at ZMQ block propagation latency between Bitcoin Core and Bitcoin Knots running on my setup.<br> Specs: Ryzen 9 16/32 CPU, 24GB RAM, a 2TB and a 1TB m.2 nvme drives, half gig internet speed.<br>
-Here is a breakdown of what this log tells us about how the two nodes are performing relative to each other:<br>
+This script was made to take a clean look at ZMQ block propagation latency between Bitcoin Core and Bitcoin Knots running on my setup.<br> Specs: Ryzen 9 16/32 CPU, 24GB RAM, a 2TB and a 1TB m.2 nvme drives, half gig internet speed.<br><br>
+Here is a breakdown of what this log tells us about how the two nodes are performing relative to each other:<br><br>
 
 If we calculate the time difference (delta) for each block hash to see which node heard it first and by how many milliseconds, we get the following:<br>
 
@@ -50,8 +50,7 @@ Listening for ZMQ block hashes down to the millisecond...<br>
 [11:20:22.944] CORE ZMQ: New Block 00000000000000000001450de9bc279d6c0967ec15d67defa4269f2c52aa3b48<br>
 [11:20:23.103] KNOTS ZMQ: New Block 00000000000000000001450de9bc279d6c0967ec15d67defa4269f2c52aa3b48<br><br>
 
-<br>
-To use the script, make sure to change IPC file path for both subscriber.  
+<b>To use the script, make sure to change IPC file path for both subscriber!</b>  
 <br>
 
 <h4>Donations are highly appreciated and can be made via crypto:</h4>
