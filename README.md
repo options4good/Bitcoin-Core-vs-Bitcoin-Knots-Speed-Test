@@ -1,34 +1,34 @@
 <h1>Bitcoin-Core-vs-Bitcoin-Knots-Speed-Test</h1>
-This script was made to take a clean look at ZMQ block propagation latency between Bitcoin Core and Bitcoin Knots running on my setup. Specs: Ryzen 9 16/32 CPU, 24GB RAM, a 2TB and a 1TB m.2 nvme drives, half gig internet speed.
-Here is a breakdown of what this log tells us about how the two nodes are performing relative to each other:
+This script was made to take a clean look at ZMQ block propagation latency between Bitcoin Core and Bitcoin Knots running on my setup.<br> Specs: Ryzen 9 16/32 CPU, 24GB RAM, a 2TB and a 1TB m.2 nvme drives, half gig internet speed.<br>
+Here is a breakdown of what this log tells us about how the two nodes are performing relative to each other:<br>
 
-If we calculate the time difference (delta) for each block hash to see which node heard it first and by how many milliseconds, we get the following:
+If we calculate the time difference (delta) for each block hash to see which node heard it first and by how many milliseconds, we get the following:<br>
 
-Core is dominant: Out of the 10 blocks captured, Bitcoin Core won 9 times.
+<b>Core is dominant:</b> Out of the 10 blocks captured, Bitcoin Core won 9 times.<br>
 
-Average Propagation Delta: When Core won, it received the block an average of 417 milliseconds before Knots.
+<b>Average Propagation Delta:</b> When Core won, it received the block an average of 417 milliseconds before Knots.<br>
 
-The Outliers: The last block before ten o'clock (...fc30b) saw a massive 999 ms gap, almost a full second, in Core's favor. On the flip side, Knots managed to scoop Core on the very first block by 167 ms.
+<b>The Outliers:</b> The last block before ten o'clock (...fc30b) saw a massive 999 ms gap, almost a full second, in Core's favor. On the flip side, Knots managed to scoop Core on the very first block by 167 ms.<br>
 
-<img width="1027" height="619" alt="msblockmonitor" src="https://github.com/user-attachments/assets/2e7406fa-62b2-4b95-86b4-02eabc2b3b5d" />
+<img width="1027" height="619" alt="msblockmonitor" src="https://github.com/user-attachments/assets/2e7406fa-62b2-4b95-86b4-02eabc2b3b5d" /><br>
 
-Why the difference?
-Because Bitcoin Knots is a derivative of Bitcoin Core, their internal block validation mechanics are nearly identical. This latency disparity almost certainly comes down to peer-to-peer (P2P) networking topology:
+<b>Why the difference?</b><br>
+Because Bitcoin Knots is a derivative of Bitcoin Core, their internal block validation mechanics are nearly identical. This latency disparity almost certainly comes down to peer-to-peer (P2P) networking topology:<br>
 
-Peer Connections: The Bitcoin Core node likely has a connection to a peer (or a mining pool node) that is geographically closer, has higher bandwidth, or is closer to the miner who discovered the block.
+Peer Connections: The Bitcoin Core node likely has a connection to a peer (or a mining pool node) that is geographically closer, has higher bandwidth, or is closer to the miner who discovered the block.<br>
 
-Compact Block Relaying (BIP152): Core is successfully reconstructing the blocks faster because it received the cmpctblock message first, or because its mempool was a more perfect match for the transactions in the block, requiring fewer round-trips to fetch missing transactions.
+Compact Block Relaying (BIP152): Core is successfully reconstructing the blocks faster because it received the cmpctblock message first, or because its mempool was a more perfect match for the transactions in the block, requiring fewer round-trips to fetch missing transactions.<br>
 
-Here is the data copied/pasted from the terminal:
+Here is the data copied/pasted from the terminal:<br>
 
-btc@btc:~$ python3 msblockmonitor.py
-Listening for ZMQ block hashes down to the millisecond...
-[09:05:12.274] KNOTS ZMQ: New Block 00000000000000000000be41b3e1566fa65b917c85715db3244216139db92497
-[09:05:12.441] CORE ZMQ: New Block 00000000000000000000be41b3e1566fa65b917c85715db3244216139db92497
-[09:07:01.183] CORE ZMQ: New Block 00000000000000000000684505b41ce8dcf71ee21cf380c3643c04f10c08698a
-[09:07:01.402] KNOTS ZMQ: New Block 00000000000000000000684505b41ce8dcf71ee21cf380c3643c04f10c08698a
-[09:09:03.730] CORE ZMQ: New Block 0000000000000000000086695e5533861e58eb0f47ce95e83272df61be8e4b9d
-[09:09:03.967] KNOTS ZMQ: New Block 0000000000000000000086695e5533861e58eb0f47ce95e83272df61be8e4b9d
+btc@btc:~$ python3 msblockmonitor.py<br>
+Listening for ZMQ block hashes down to the millisecond...<br>
+[09:05:12.274] KNOTS ZMQ: New Block 00000000000000000000be41b3e1566fa65b917c85715db3244216139db92497<br>
+[09:05:12.441] CORE ZMQ: New Block 00000000000000000000be41b3e1566fa65b917c85715db3244216139db92497<br>
+[09:07:01.183] CORE ZMQ: New Block 00000000000000000000684505b41ce8dcf71ee21cf380c3643c04f10c08698a<br>
+[09:07:01.402] KNOTS ZMQ: New Block 00000000000000000000684505b41ce8dcf71ee21cf380c3643c04f10c08698a<br>
+[09:09:03.730] CORE ZMQ: New Block 0000000000000000000086695e5533861e58eb0f47ce95e83272df61be8e4b9d<br>
+[09:09:03.967] KNOTS ZMQ: New Block 0000000000000000000086695e5533861e58eb0f47ce95e83272df61be8e4b9d<br>
 [09:14:49.899] CORE ZMQ: New Block 000000000000000000012c6f0077f2ae9583cb16e169858d1a7c9ac9216c45c6
 [09:14:50.533] KNOTS ZMQ: New Block 000000000000000000012c6f0077f2ae9583cb16e169858d1a7c9ac9216c45c6
 [09:18:18.018] CORE ZMQ: New Block 00000000000000000001cea3ef906ba87a5f3ad6f40b311c12d2da1d3e00dd2f
