@@ -51,6 +51,8 @@ Listening for ZMQ block hashes down to the millisecond...<br>
 [11:20:23.103] KNOTS ZMQ: New Block 00000000000000000001450de9bc279d6c0967ec15d67defa4269f2c52aa3b48<br><br>
 
 <br>
+To use the script, make sure to change IPC file path for both subscriber.  
+<br>
 
 <h4>Donations are highly appreciated and can be made via crypto:</h4>
 <b>DGB</b> wallet address:&nbsp;&nbsp;DEkZrJo1BHdiqnQq1XQSWGymEcDWGAWwZs<br>
